@@ -3,7 +3,7 @@ import CardFrame from "../../../../../components/CardFrame/CardFrame";
 const Tags = () => {
   return (
     <CardFrame>
-      <h1 className=" tex-[#03050c] text-xl font-semibold mb-2">
+      <h1 className=" text-[#03050c] text-xl font-semibold mb-2 dark:text-[#ffffff]">
         Popular Tags
       </h1>
       <div className="flex items-center gap-2 mr-10">

@@ -23,13 +23,13 @@ const Card: React.FC<CardsProps> = ({ tittle, name }) => {
         pariatur aut.
       </p>
       <div className="flex items-center gap-2">
-        <button className="bg-[#e0e2eb] text-[#3d435c] rounded-md py-[2px] px-[10px] mt-2">
+        <button className="bg-[#e0e2eb] text-[#3d435c] rounded-md py-[2px] px-[10px] mt-2 dark:bg-[#121317] dark:text-[#a2a6b9]">
           blockchain
         </button>
-        <button className="bg-[#e0e2eb] text-[#3d435c] rounded-md py-[2px] px-[10px] mt-2">
+        <button className="bg-[#e0e2eb] text-[#3d435c] rounded-md py-[2px] px-[10px] mt-2 dark:bg-[#121317] dark:text-[#a2a6b9]">
           Technology
         </button>
-        <button className="bg-[#e0e2eb] text-[#3d435c] rounded-md py-[2px] px-[10px] mt-2">
+        <button className="bg-[#e0e2eb] text-[#3d435c] rounded-md py-[2px] px-[10px] mt-2 dark:bg-[#121317] dark:text-[#a2a6b9]">
           Future
         </button>
       </div>

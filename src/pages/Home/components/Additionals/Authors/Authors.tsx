@@ -3,7 +3,7 @@ import CardFrame from "../../../../../components/CardFrame/CardFrame";
 const Authors = () => {
   return (
     <CardFrame>
-      <h1 className=" tex-[#03050c] text-xl font-semibold mb-2">
+      <h1 className=" text-[#03050c] text-xl font-semibold mb-2 dark:text-[#ffffff]">
         Featured Authors
       </h1>
       <div className="flex flex-col gap-3">
