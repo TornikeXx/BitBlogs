@@ -1,10 +1,13 @@
+import { useTranslation } from "react-i18next";
 import CardFrame from "../../../../../components/CardFrame/CardFrame";
 
 const Authors = () => {
+  const { t } = useTranslation();
+
   return (
     <CardFrame>
       <h1 className=" text-[#03050c] text-xl font-semibold mb-2 dark:text-[#ffffff]">
-        Featured Authors
+        {t("authors")}
       </h1>
       <div className="flex flex-col gap-3">
         <div className="flex gap-2 items-center cursor-pointer">

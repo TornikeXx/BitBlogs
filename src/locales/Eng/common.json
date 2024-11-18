@@ -1,0 +1,21 @@
+{
+  "home": "Home",
+  "write": "Write",
+  "about": "About",
+  "sign_in": "Sign In",
+  "tags": "Popular Tags",
+  "authors": "Featured Authors",
+  "log_to_bitblogs": "Log in to BitBlogs",
+  "credentials": "Enter your credentials to access your account",
+  "email": "Email",
+  "password": "Password",
+  "log_in": "Log In",
+  "forgot_password": "Forgot password?",
+  "dont_have_account": "Don't have an account?",
+  "sign_up": "Sign up",
+  "sign_up_for_bitblogs": "Sign Up for BitBlogs",
+  "create_account": "Create your account to start blogging",
+  "name": "Name",
+  "confirm_password": "Confirm Password",
+  "already_have_account": "Already have an account?"
+}

@@ -1,18 +1,44 @@
 import { Route, Routes } from "react-router-dom";
-import HomePageView from "./pages/Home/view";
 import Layout from "./layout";
-import SignIn from "./pages/Sign-In/SignIn";
-import SignUp from "./pages/Sign-Up/SignUp";
+import { lazy, Suspense } from "react";
+import Loading from "./components/Loading/Loading";
+import ErrorPage from "./pages/404/Error";
+
+const HomePageView = lazy(() => import("./pages/Home/view"));
+const SignInPage = lazy(() => import("./pages/Sign-In/SignIn"));
+const SignUpPage = lazy(() => import("./pages/Sign-Up/SignUp"));
 
 function App() {
   return (
     <>
       <Routes>
         <Route element={<Layout />}>
-          <Route path="/" element={<HomePageView />} />
-          <Route path="login" element={<SignIn />} />
-          <Route path="register" element={<SignUp />} />
+          <Route
+            path="/"
+            element={
+              <Suspense fallback={<Loading />}>
+                <HomePageView />
+              </Suspense>
+            }
+          />
+          <Route
+            path="login"
+            element={
+              <Suspense fallback={<Loading />}>
+                <SignInPage />
+              </Suspense>
+            }
+          />
+          <Route
+            path="register"
+            element={
+              <Suspense fallback={<Loading />}>
+                <SignUpPage />
+              </Suspense>
+            }
+          />
         </Route>
+        <Route path="*" element={<ErrorPage />} />
       </Routes>
     </>
   );

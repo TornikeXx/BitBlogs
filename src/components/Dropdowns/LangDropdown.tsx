@@ -6,8 +6,12 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import earth from "../../assets/earth.svg";
+import i18n from "i18next";
 
 export function LangDropdown() {
+  const handleChangeName = (lang: string) => {
+    i18n.changeLanguage(lang);
+  };
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -19,8 +23,12 @@ export function LangDropdown() {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuItem>English</DropdownMenuItem>
-        <DropdownMenuItem>ქართული</DropdownMenuItem>
+        <DropdownMenuItem onClick={() => handleChangeName("en")}>
+          English
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => handleChangeName("ka")}>
+          ქართული
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
