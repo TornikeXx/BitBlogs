@@ -1,12 +1,16 @@
 import { useParams } from "react-router-dom";
 import { Twitter, Facebook, Linkedin, Github } from "lucide-react";
 import authors from "../../../../../../../authors.json";
-import { Button } from "../../../../../../components/ui/button";
 import { useState } from "react";
 import ArticleCard from "../../../Articles/Card/Card";
 import {
   Card
-} from "../../../../../../components/ui/card";
+} from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+// import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../../../../../components/ui/tabs"
+
+
+
 
 const SingleAuthorsView = () => {
   const { id } = useParams();
@@ -54,28 +58,23 @@ const SingleAuthorsView = () => {
         </div>
       </div>
       <div>
-        <Button
-          onClick={() => handleClick("firstBtn")}
-          disabled={activeButton === "firstBtn"}
-          className="bg-grey w-[50%]"
-        >
-          Articles
-        </Button>
-        <Button
-          onClick={() => handleClick("secondBtn")}
-          disabled={activeButton === "secondBtn"}
-          className="bg-grey w-[50%]"
-        >
-          About
-        </Button>
-
-        {activeButton === "firstBtn" ? (
+        
+        <Tabs defaultValue="articles">
+          <TabsList className="w-[100%]">
+            <TabsTrigger className="w-[50%]" value="articles">Articles</TabsTrigger>
+            <TabsTrigger className="w-[50%]" value="about">About</TabsTrigger>
+          </TabsList>
+          <TabsContent value="articles">
           <div className="my-8 flex flex-col gap-4">
             <ArticleCard tittle="The Future of Blockchain" name="John Doe" />
             <ArticleCard tittle="Crypto" name="Jane Smith" />
             <ArticleCard tittle="Technology" name="Alex Johnson" />
-          </div>
-        ) : (
+</div>
+
+
+          </TabsContent>
+          <TabsContent value="about">
+            
           <Card className="p-6 my-8">
             <h2 className="text-xl font-semibold">
               About {currentAuthor.name}
@@ -94,10 +93,22 @@ const SingleAuthorsView = () => {
               </button>
             </div>
           </Card>
-        )}
+          </TabsContent>
+</Tabs>
+
       </div>
     </div>
   );
 };
 
 export default SingleAuthorsView;
+
+
+
+
+
+          
+
+
+
+
