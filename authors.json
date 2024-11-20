@@ -1,0 +1,29 @@
+[
+  {
+    "id": "1",
+    "name": "Alice Johnson",
+    "bio": "Blockchain Enthusiast",
+    "about": "Tech enthusiast, software engineer, and avid blogger. Passionate about AI, web development, and the future of technology.",
+    "initials": "AJ",
+    "followers": "12345",
+    "following": "2423"
+  },
+  {
+    "id": "2",
+    "name": "Bob Smith",
+    "bio": "Crypto Analyst",
+    "about": "Tech enthusiast, software engineer, and avid blogger. Passionate about AI, web development, and the future of technology.",
+    "initials": "BS",
+    "followers": "923345",
+    "following": "2953"
+  },
+  {
+    "id": "3",
+    "name": "Carol Williams",
+    "bio": "Tech Journalist",
+    "about": "Tech enthusiast, software engineer, and avid blogger. Passionate about AI, web development, and the future of technology.",
+    "initials": "CW",
+    "followers": "18705",
+    "following": "2412"
+  }
+]

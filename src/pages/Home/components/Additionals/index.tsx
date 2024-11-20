@@ -1,5 +1,5 @@
 import Tags from "./Tags/Tags";
-import Authors from "./Authors/Authors";
+import Authors from "./Authors/list/Authors";
 
 const AdditionalsView = () => {
   return (

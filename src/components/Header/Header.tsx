@@ -22,7 +22,7 @@ const Header: React.FC = () => {
           {t("home")}
         </a>
         <a href=""> {t("write")}</a>
-        <a href=""> {t("about")}</a>
+        <a href="/about"> {t("about")}</a>
       </div>
       <div className="flex items-center gap-4">
         <div className="dark:invert dark:brightness-75">

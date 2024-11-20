@@ -7,6 +7,13 @@ import ErrorPage from "./pages/404/Error";
 const HomePageView = lazy(() => import("./pages/Home/view"));
 const SignInPage = lazy(() => import("./pages/Sign-In/SignIn"));
 const SignUpPage = lazy(() => import("./pages/Sign-Up/SignUp"));
+const AboutPage = lazy(() => import("./pages/About/AboutPage"));
+const SingleAuthorsView = lazy(
+  () =>
+    import(
+      "./pages/Home/components/Additionals/Authors/single/SingleAuthorsView"
+    ),
+);
 
 function App() {
   return (
@@ -34,6 +41,22 @@ function App() {
             element={
               <Suspense fallback={<Loading />}>
                 <SignUpPage />
+              </Suspense>
+            }
+          />
+          <Route
+            path="about"
+            element={
+              <Suspense fallback={<Loading />}>
+                <AboutPage />
+              </Suspense>
+            }
+          />
+          <Route
+            path="author/:id"
+            element={
+              <Suspense fallback={<Loading />}>
+                <SingleAuthorsView />
               </Suspense>
             }
           />
