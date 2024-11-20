@@ -8,7 +8,7 @@ import { useTranslation } from "react-i18next";
 const Header: React.FC = () => {
   const navigate = useNavigate();
   const handleNavigate = () => {
-    navigate("login");
+    navigate("/login");
   };
   const { t } = useTranslation();
 
