@@ -70,7 +70,7 @@ const SignIn = () => {
           </span>
           <span className="text-[14px] font-thin dark:text-[#555969]">
             {t("dont_have_account")}
-            <a href="register" className="text-buttonblue">
+            <a href="/register" className="text-buttonblue">
               {t("sign_up")}
             </a>
           </span>

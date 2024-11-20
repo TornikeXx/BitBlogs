@@ -91,7 +91,7 @@ const SignUp = () => {
         <div className="flex justify-center">
           <span className="text-[14px] font-thin dark:text-[#555969]">
             {t("already_have_account")}{" "}
-            <a href="login" className="text-buttonblue">
+            <a href="/login" className="text-buttonblue">
               {t("log_in")}{" "}
             </a>
           </span>
