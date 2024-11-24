@@ -1,8 +1,13 @@
 import { Route, Routes } from "react-router-dom";
 import Layout from "./layout";
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import Loading from "./components/Loading/Loading";
 import ErrorPage from "./pages/404/Error";
+import { supabase } from "./supabase";
+import AuthGurad from "./components/RouteGuard/auth";
+import { useAtom } from "jotai";
+import { userAtom } from "./store/auth";
+import ProfileView from "./pages/Profile";
 
 const HomePageView = lazy(() => import("./pages/Home/view"));
 const SignInPage = lazy(() => import("./pages/Sign-In/SignIn"));
@@ -16,6 +21,24 @@ const SingleAuthorsView = lazy(
 );
 
 function App() {
+
+  const [user, setUser] = useAtom(userAtom)
+  const isUserAuthenticated = !!user;
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session)
+    })
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session)
+    })
+
+    return () => subscription.unsubscribe()
+  }, [setUser])
+
   return (
     <>
       <Routes>
@@ -32,7 +55,9 @@ function App() {
             path="login"
             element={
               <Suspense fallback={<Loading />}>
-                <SignInPage />
+                <AuthGurad user={isUserAuthenticated}>
+                  <SignInPage />
+                </AuthGurad>
               </Suspense>
             }
           />
@@ -40,7 +65,9 @@ function App() {
             path="register"
             element={
               <Suspense fallback={<Loading />}>
-                <SignUpPage />
+                <AuthGurad user={isUserAuthenticated}>
+                  <SignUpPage />
+                </AuthGurad>
               </Suspense>
             }
           />
@@ -57,6 +84,17 @@ function App() {
             element={
               <Suspense fallback={<Loading />}>
                 <SingleAuthorsView />
+              </Suspense>
+            }
+          />
+          <Route
+            path="profile"
+            element={
+              <Suspense fallback={<Loading />}>
+                <AuthGurad user={isUserAuthenticated} isProfilePage>
+                 <ProfileView /> 
+                </AuthGurad>
+                
               </Suspense>
             }
           />

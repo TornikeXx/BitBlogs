@@ -15,11 +15,10 @@ createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <BrowserRouter>
       <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
-      <QueryClientProvider client={queryClient}>
-          <App />
-          </QueryClientProvider>
-      </ThemeProvider>
-      
+        <QueryClientProvider client={queryClient}>
+            <App />
+      </QueryClientProvider>
+      </ThemeProvider> 
     </BrowserRouter>
   </StrictMode>,
 );

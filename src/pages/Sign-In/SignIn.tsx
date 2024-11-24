@@ -4,9 +4,11 @@ import { useTranslation } from "react-i18next";
 import { ChangeEvent, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { login } from "../../supabase/auth";
+import { useNavigate } from "react-router-dom";
 
 const SignIn = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate()
 
   const [password,setPassword]=useState("")
   const [email,setEmail]=useState("")
@@ -14,7 +16,10 @@ const SignIn = () => {
 
   const { mutate:handleLogIn} = useMutation({
     mutationKey: ["login"],
-    mutationFn:login
+    mutationFn: login,
+    onSuccess: () => {
+      navigate("/")
+    }
   })
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
