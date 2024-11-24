@@ -1,16 +1,18 @@
-
 import React, { PropsWithChildren } from "react";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 
 interface AuthGuardProps {
-  user: boolean; 
-  isProfilePage?: boolean; 
+  user: boolean;
+  isProfilePage?: boolean;
 }
-
 
 type AuthGuardComponentProps = PropsWithChildren<AuthGuardProps>;
 
-const AuthGuard: React.FC<AuthGuardComponentProps> = ({ children, user, isProfilePage }) => {
+const AuthGuard: React.FC<AuthGuardComponentProps> = ({
+  children,
+  user,
+  isProfilePage,
+}) => {
   const location = useLocation();
 
   if (user) {
