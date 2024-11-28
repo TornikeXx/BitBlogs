@@ -17,5 +17,9 @@
   "create_account": "შექმენი ანგარიში ",
   "name": "სახელი",
   "confirm_password": "გაიმეორე პაროლი",
-  "already_have_account": "უკვე გაქვს ანგარიში?"
+  "already_have_account": "უკვე გაქვს ანგარიში?",
+  "required": "აუცილებელია!",
+  "min_length": "მინიმუმ 4 სიმბოლო",
+  "max_length": "მაქსიმუმ 15 სიმბოლო",
+  "invalid_email": "არასწორი ემეილის ფორმა"
 }

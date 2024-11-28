@@ -10,15 +10,14 @@ import "../src/locales";
 
 const queryClient = new QueryClient();
 
-
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <BrowserRouter>
       <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
         <QueryClientProvider client={queryClient}>
-            <App />
-      </QueryClientProvider>
-      </ThemeProvider> 
+          <App />
+        </QueryClientProvider>
+      </ThemeProvider>
     </BrowserRouter>
   </StrictMode>,
 );

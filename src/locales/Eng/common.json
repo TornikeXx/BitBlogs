@@ -17,5 +17,9 @@
   "create_account": "Create your account to start blogging",
   "name": "Name",
   "confirm_password": "Confirm Password",
-  "already_have_account": "Already have an account?"
+  "already_have_account": "Already have an account?",
+  "required": "This field is required",
+  "min_length": "value must be at least 4 character",
+  "max_length": "value must be max 15 character",
+  "invalid_email": "Invalid Email"
 }

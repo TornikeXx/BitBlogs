@@ -21,23 +21,22 @@ const SingleAuthorsView = lazy(
 );
 
 function App() {
-
-  const [user, setUser] = useAtom(userAtom)
+  const [user, setUser] = useAtom(userAtom);
   const isUserAuthenticated = !!user;
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
-      setUser(session)
-    })
+      setUser(session);
+    });
 
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session)
-    })
+      setUser(session);
+    });
 
-    return () => subscription.unsubscribe()
-  }, [setUser])
+    return () => subscription.unsubscribe();
+  }, [setUser]);
 
   return (
     <>
@@ -92,9 +91,8 @@ function App() {
             element={
               <Suspense fallback={<Loading />}>
                 <AuthGurad user={isUserAuthenticated} isProfilePage>
-                 <ProfileView /> 
+                  <ProfileView />
                 </AuthGurad>
-                
               </Suspense>
             }
           />

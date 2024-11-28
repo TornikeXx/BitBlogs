@@ -1,3 +1,4 @@
+
 import { Input } from "@/components/ui/input";
 import { userAtom } from "@/store/auth";
 import { fillProfileInfo, getProfileInfo } from "@/supabase/account";
@@ -5,10 +6,20 @@ import { logout } from "@/supabase/auth";
 import { Database } from "@/supabase/supabase.types";
 import { useMutation } from "@tanstack/react-query";
 import { useAtomValue } from "jotai";
-import { ChangeEvent, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Controller, useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+
+type FormValues = {
+  phone: string;
+  nameKa: string;
+  nameEn: string;
+};
 
 const ProfileView = () => {
+  const { t} = useTranslation();
+
   const user = useAtomValue(userAtom);
   const navigate = useNavigate();
   const [profile, setProfile] = useState<
@@ -16,18 +27,27 @@ const ProfileView = () => {
   >(null);
 
   const inputRef = useRef<HTMLInputElement | null>(null);
-
-  const [phone, setPhone] = useState("");
-  const [nameKa, setNameKa] = useState("");
-  const [nameEn, setNameEn] = useState("");
   const [avatar, setAvatar] = useState("");
+
+  const { control, handleSubmit, reset } = useForm<FormValues>({
+    defaultValues: {
+      phone: "",
+      nameKa: "",
+      nameEn: "",
+    },
+  });
 
   const fetchProfileInfo = async (id: string | number) => {
     const res = await getProfileInfo(id);
     const profileData = res.data?.[0];
     if (profileData) {
       setProfile(profileData);
-      setInitialFormsValue(profileData);
+      setAvatar(profileData.avatar_url || "");
+      reset({
+        phone: profileData.phone_number || "",
+        nameKa: profileData.full_name_ka || "",
+        nameEn: profileData.full_name_en || "",
+      });
     }
   };
 
@@ -41,14 +61,14 @@ const ProfileView = () => {
     },
   });
 
-  const handleSubmit = () => {
+  const onSubmit = (data:FormValues) => {
     if (user?.user?.id) {
       updateProfile({
         id: user.user.id,
         avatar_url: avatar,
-        phone_number: phone,
-        full_name_en: nameEn,
-        full_name_ka: nameKa,
+        phone_number: data.phone,
+        full_name_en: data.nameEn,
+        full_name_ka: data.nameKa,
       });
     }
   };
@@ -59,13 +79,6 @@ const ProfileView = () => {
     }
   }, [user]);
 
-  const setInitialFormsValue = (profile: any) => {
-    setPhone(profile.phone_number || "");
-    setNameEn(profile.full_name_en || "");
-    setNameKa(profile.full_name_ka || "");
-    setAvatar(profile.avatar_url || "");
-  };
-
   const handleGenerateAvatar = async () => {
     const generateRandomSeed = () => {
       return Math.random().toString(36).substring(2, 15);
@@ -75,74 +88,126 @@ const ProfileView = () => {
     setAvatar(url);
   };
 
+
   const { mutate: handleLogOut } = useMutation({
     mutationKey: ["logout"],
     mutationFn: logout,
     onSuccess: () => navigate("/login"),
   });
 
-  const handleChangeprofile = () => {
-    if (inputRef.current) {
-      inputRef.current.focus();
-    }
-  };
-
   return (
     <div className="h-[100vh] flex flex-col items-center justify-center">
       <div className="w-[500px] flex flex-col gap-4">
-        <Input
-          placeholder="Phone"
-          ref={inputRef}
-          value={phone}
-          onChange={(e: ChangeEvent<HTMLInputElement>) =>
-            setPhone(e.target.value)
-          }
-        />
-        <Input
-          placeholder="Name"
-          value={nameEn}
-          onChange={(e: ChangeEvent<HTMLInputElement>) =>
-            setNameEn(e.target.value)
-          }
-        />
-        <Input
-          placeholder="სახელი"
-          value={nameKa}
-          onChange={(e: ChangeEvent<HTMLInputElement>) =>
-            setNameKa(e.target.value)
-          }
-        />
-        <button className="text-xl font-bold " onClick={handleGenerateAvatar}>
-          Generate Avatar
-        </button>
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+          <Controller
+            name="phone"
+            control={control}
+            rules={{
+              required: "required",
+              minLength: {
+                value: 4,
+                message:"min_length"
+              },
+              maxLength: {
+                value: 15,
+                message:"max_length"
+              }
+            }}
+            render={({ field: { onChange, value }, fieldState: { error } }) => (
+              <>
+                <Input placeholder="Phone" value={value} ref={inputRef} onChange={onChange} />
+                {error && (
+                    <p className="text-red-600">{t(error.message || "")}</p>
+                  )}              </>
+              
+            )}
 
-        <button
-          className="bg-blue-500 text-white py-2 px-4 rounded"
-          onClick={handleSubmit}
-        >
-          Submit
-        </button>
+          />
+
+          <Controller
+            name="nameEn"
+            control={control}
+            rules={{
+              required: "required",
+              minLength: {
+                value: 4,
+                message:"min_length"
+              },
+              maxLength: {
+                value: 15,
+                message:"max_length"
+              }
+            }}
+            render={({ field: { onChange, value },fieldState:{error} }) => (
+              <>
+              <Input placeholder="Name (English)" value={value} onChange={onChange} />
+              {error && (
+                    <p className="text-red-600">{t(error.message || "")}</p>
+                  )}              </>
+
+            )}
+          />
+
+          <Controller
+            name="nameKa"
+            control={control}
+            rules={{
+              required: "required",
+              minLength: {
+                value: 4,
+                message:"min_length"
+              },
+              maxLength: {
+                value: 15,
+                message:"max_length"
+              }
+            }}
+            render={({ field: { onChange, value },fieldState:{error} }) => (
+              <>
+              <Input placeholder="სახელი (ქართული)" value={value} onChange={onChange} />
+              {error && (
+                    <p className="text-red-600">{t(error.message || "")}</p>
+                  )}              </>
+
+            )}
+          />
+
+          <button
+            type="button"
+            className="text-xl font-bold"
+            onClick={handleGenerateAvatar}
+          >
+            Generate Avatar
+          </button>
+
+          <button
+            type="submit"
+            className="bg-blue-500 text-white py-2 px-4 rounded"
+          >
+            Submit
+          </button>
+        </form>
 
         {profile && (
           <div className="mt-6 p-4 border rounded bg-gray-100 flex flex-col items-center justify-center">
             <h1 className="text-2xl font-bold">Profile</h1>
             <span className="flex gap-4">
-              <p className="font-bold">Name(en):</p>
+              <p className="font-bold">Name (en):</p>
               <p>{profile.full_name_en}</p>
             </span>
             <span className="flex gap-4">
-              <p className="font-bold">Name(ge):</p>
+              <p className="font-bold">Name (ge):</p>
               <p>{profile.full_name_ka}</p>
             </span>
             <span className="flex gap-4">
               <p className="font-bold">Phone number:</p>
               <p>{profile.phone_number}</p>
             </span>
-            <img className="w-[100px] h-[100px]" src={avatar} alt="" />
+            <img className="w-[100px] h-[100px]" src={avatar} alt="avatar" />
             <div className="flex gap-8">
               <p
-                onClick={handleChangeprofile}
                 className="text-green-600 cursor-pointer"
+                onClick={() => inputRef.current?.focus()}
               >
                 Change Profile
               </p>
