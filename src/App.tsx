@@ -8,6 +8,7 @@ import AuthGurad from "./components/RouteGuard/auth";
 import { useAtom } from "jotai";
 import { userAtom } from "./store/auth";
 import ProfileView from "./pages/Profile";
+import WritePage from "./pages/Write";
 
 const HomePageView = lazy(() => import("./pages/Home/view"));
 const SignInPage = lazy(() => import("./pages/Sign-In/SignIn"));
@@ -75,6 +76,14 @@ function App() {
             element={
               <Suspense fallback={<Loading />}>
                 <AboutPage />
+              </Suspense>
+            }
+          />
+          <Route
+            path="write"
+            element={
+              <Suspense fallback={<Loading />}>
+                <WritePage />
               </Suspense>
             }
           />

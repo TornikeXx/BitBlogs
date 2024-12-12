@@ -38,7 +38,7 @@ const Header: React.FC = () => {
         <a href="/" className="">
           {t("home")}
         </a>
-        <a href=""> {t("write")}</a>
+        <a href="/write"> {t("write")}</a>
         <a href="/about"> {t("about")}</a>
       </div>
       <div className="flex items-center  gap-4">

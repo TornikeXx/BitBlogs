@@ -1,4 +1,3 @@
-
 import { Input } from "@/components/ui/input";
 import { userAtom } from "@/store/auth";
 import { fillProfileInfo, getProfileInfo } from "@/supabase/account";
@@ -18,7 +17,7 @@ type FormValues = {
 };
 
 const ProfileView = () => {
-  const { t} = useTranslation();
+  const { t } = useTranslation();
 
   const user = useAtomValue(userAtom);
   const navigate = useNavigate();
@@ -61,7 +60,7 @@ const ProfileView = () => {
     },
   });
 
-  const onSubmit = (data:FormValues) => {
+  const onSubmit = (data: FormValues) => {
     if (user?.user?.id) {
       updateProfile({
         id: user.user.id,
@@ -88,7 +87,6 @@ const ProfileView = () => {
     setAvatar(url);
   };
 
-
   const { mutate: handleLogOut } = useMutation({
     mutationKey: ["logout"],
     mutationFn: logout,
@@ -106,22 +104,26 @@ const ProfileView = () => {
               required: "required",
               minLength: {
                 value: 4,
-                message:"min_length"
+                message: "min_length",
               },
               maxLength: {
                 value: 15,
-                message:"max_length"
-              }
+                message: "max_length",
+              },
             }}
             render={({ field: { onChange, value }, fieldState: { error } }) => (
               <>
-                <Input placeholder="Phone" value={value} ref={inputRef} onChange={onChange} />
+                <Input
+                  placeholder="Phone"
+                  value={value}
+                  ref={inputRef}
+                  onChange={onChange}
+                />
                 {error && (
-                    <p className="text-red-600">{t(error.message || "")}</p>
-                  )}              </>
-              
+                  <p className="text-red-600">{t(error.message || "")}</p>
+                )}{" "}
+              </>
             )}
-
           />
 
           <Controller
@@ -131,20 +133,24 @@ const ProfileView = () => {
               required: "required",
               minLength: {
                 value: 4,
-                message:"min_length"
+                message: "min_length",
               },
               maxLength: {
                 value: 15,
-                message:"max_length"
-              }
+                message: "max_length",
+              },
             }}
-            render={({ field: { onChange, value },fieldState:{error} }) => (
+            render={({ field: { onChange, value }, fieldState: { error } }) => (
               <>
-              <Input placeholder="Name (English)" value={value} onChange={onChange} />
-              {error && (
-                    <p className="text-red-600">{t(error.message || "")}</p>
-                  )}              </>
-
+                <Input
+                  placeholder="Name (English)"
+                  value={value}
+                  onChange={onChange}
+                />
+                {error && (
+                  <p className="text-red-600">{t(error.message || "")}</p>
+                )}{" "}
+              </>
             )}
           />
 
@@ -155,20 +161,24 @@ const ProfileView = () => {
               required: "required",
               minLength: {
                 value: 4,
-                message:"min_length"
+                message: "min_length",
               },
               maxLength: {
                 value: 15,
-                message:"max_length"
-              }
+                message: "max_length",
+              },
             }}
-            render={({ field: { onChange, value },fieldState:{error} }) => (
+            render={({ field: { onChange, value }, fieldState: { error } }) => (
               <>
-              <Input placeholder="სახელი (ქართული)" value={value} onChange={onChange} />
-              {error && (
-                    <p className="text-red-600">{t(error.message || "")}</p>
-                  )}              </>
-
+                <Input
+                  placeholder="სახელი (ქართული)"
+                  value={value}
+                  onChange={onChange}
+                />
+                {error && (
+                  <p className="text-red-600">{t(error.message || "")}</p>
+                )}{" "}
+              </>
             )}
           />
 
