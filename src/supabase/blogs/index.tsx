@@ -1,18 +1,12 @@
+import { FilterValue, uploadPayload } from "@/pages/Write/types";
 import { supabase } from "..";
 
-type uploadPayload = {
-  title_en: string;
-  title_ka: string;
-  description_en: string;
-  description_ka: string;
-  image_url: File | null;
-  user_id: string;
-  id?: number;
-  created_at?: string;
-};
 
-export const getBlogs = async () => {
-  const res = await supabase.from("blogs").select("*");
+export const getBlogs = async (searchValue:FilterValue) => {
+  const res = await supabase
+    .from("blogs")
+    .select("*")
+    .or(`title_en.ilike.%${searchValue.searchText}%,title_ka.ilike.%${searchValue.searchText}%`);
   return res.data;
 };
 
