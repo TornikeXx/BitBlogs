@@ -1,9 +1,8 @@
 import { Input } from "../../components/ui/input";
 import CardFrame from "../../components/CardFrame/CardFrame";
 import { useTranslation } from "react-i18next";
-import { useMutation } from "@tanstack/react-query";
-import { register } from "../../supabase/auth";
 import { Controller, useForm } from "react-hook-form";
+import { useHandleRegister } from "@/react-query/mutation/auth";
 
 type FormValues = {
   name: string;
@@ -15,10 +14,7 @@ type FormValues = {
 const SignUp = () => {
   const { t } = useTranslation();
 
-  const { mutate: handleRegister } = useMutation({
-    mutationKey: ["register"],
-    mutationFn: register,
-  });
+  const { mutate: handleRegister } = useHandleRegister();
 
   const { control, handleSubmit, reset } = useForm<FormValues>({
     defaultValues: {

@@ -1,14 +1,13 @@
 import { Input } from "@/components/ui/input";
 import { userAtom } from "@/store/auth";
 import { fillProfileInfo, getProfileInfo } from "@/supabase/account";
-import { logout } from "@/supabase/auth";
 import { Database } from "@/supabase/supabase.types";
 import { useMutation } from "@tanstack/react-query";
 import { useAtomValue } from "jotai";
 import { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
+import { useHandleLogOut } from "@/react-query/mutation/auth";
 
 type FormValues = {
   phone: string;
@@ -20,7 +19,6 @@ const ProfileView = () => {
   const { t } = useTranslation();
 
   const user = useAtomValue(userAtom);
-  const navigate = useNavigate();
   const [profile, setProfile] = useState<
     Database["public"]["Tables"]["profiles"]["Row"] | null
   >(null);
@@ -87,11 +85,7 @@ const ProfileView = () => {
     setAvatar(url);
   };
 
-  const { mutate: handleLogOut } = useMutation({
-    mutationKey: ["logout"],
-    mutationFn: logout,
-    onSuccess: () => navigate("/login"),
-  });
+  const { mutate: handleLogOut } = useHandleLogOut();
 
   return (
     <div className="h-[100vh] flex flex-col items-center justify-center">

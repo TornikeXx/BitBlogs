@@ -1,6 +1,3 @@
-
-import { useQuery } from "@tanstack/react-query";
-import { getBlogs } from "@/supabase/blogs";
 import CardFrame from "@/components/CardFrame/CardFrame";
 import CreateBlogForm from "./components/create";
 import { Controller, useForm } from "react-hook-form";
@@ -11,7 +8,7 @@ import qs from "qs";
 import { useEffect } from "react";
 import { FilterValue } from "./types";
 import { formatDate } from "@/utils/formatDate";
-
+import { useGetBlogs } from "@/react-query/query/blogs";
 
 const WritePage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -29,19 +26,12 @@ const WritePage = () => {
     setSearchParams(query);
   }, [debouncedSearchText]);
 
-
-
-  const { data:blogs, } = useQuery({
-    queryKey: ["blogs", debouncedSearchText],
-    queryFn: () => getBlogs({ searchText: debouncedSearchText }),
-  });
-
-  
+  const { data: blogs } = useGetBlogs({ searchText: debouncedSearchText });
 
   return (
     <div className="flex flex-col items-center justify-center my-7">
       <div className="w-[500px] flex flex-col gap-4">
-        <CreateBlogForm  />
+        <CreateBlogForm />
         <div className="flex gap-5">
           <Controller
             name="searchText"
@@ -85,9 +75,7 @@ const WritePage = () => {
                 <p className="text-[#555969] font-thin">
                   {blog.description_ka || "აღწერა"}
                 </p>
-                <p className="mt-3 font-bold">
-                  {formatDate(blog.created_at)}
-                </p>
+                <p className="mt-3 font-bold">{formatDate(blog.created_at)}</p>
               </div>
             </CardFrame>
           );

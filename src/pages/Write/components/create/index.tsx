@@ -1,18 +1,16 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { userAtom } from "@/store/auth";
-import { addBlog } from "@/supabase/blogs";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useAtomValue } from "jotai";
 import React from "react";
 import { Controller, useForm } from "react-hook-form";
 import { FormValues } from "../../types";
+import { useHandleAddingBlog } from "@/react-query/mutation/blogs";
 
 const CreateBlogForm: React.FC = () => {
   const user = useAtomValue(userAtom);
-  const queryClient = useQueryClient();
 
-  const { control, handleSubmit, reset } = useForm<FormValues>({
+  const { control, handleSubmit } = useForm<FormValues>({
     defaultValues: {
       title_en: "",
       title_ka: "",
@@ -33,16 +31,7 @@ const CreateBlogForm: React.FC = () => {
     });
   };
 
-  const { mutate: addBlogToList } = useMutation({
-    mutationKey: ["add-blog"],
-    mutationFn: addBlog,
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["blogs"],
-      });
-      reset();
-    },
-  });
+  const { mutate: addBlogToList } = useHandleAddingBlog();
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">

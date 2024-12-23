@@ -1,10 +1,8 @@
 import { Input } from "../../components/ui/input";
 import CardFrame from "../../components/CardFrame/CardFrame";
 import { useTranslation } from "react-i18next";
-import { useMutation } from "@tanstack/react-query";
-import { login } from "../../supabase/auth";
-import { useNavigate } from "react-router-dom";
 import { Controller, useForm } from "react-hook-form";
+import { useHandleLogIn } from "@/react-query/mutation/auth";
 
 type FormValues = {
   email: string;
@@ -13,15 +11,8 @@ type FormValues = {
 
 const SignIn = () => {
   const { t } = useTranslation();
-  const navigate = useNavigate();
 
-  const { mutate: handleLogIn } = useMutation({
-    mutationKey: ["login"],
-    mutationFn: login,
-    onSuccess: () => {
-      navigate("/");
-    },
-  });
+  const { mutate: handleLogIn } = useHandleLogIn();
 
   const { control, handleSubmit, reset } = useForm<FormValues>({
     defaultValues: {
